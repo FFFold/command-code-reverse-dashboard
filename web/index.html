@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Command Code · 余额看板</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Command Code · 余额看板</div>
+    <div class="actions">
+      <span id="updated" class="muted"></span>
+      <button id="refresh" type="button">刷新</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero card">
+      <div class="label">剩余可用</div>
+      <div id="balance" class="big">—</div>
+      <div id="balance-sub" class="muted"></div>
+      <div class="windows">
+        <div class="window">
+          <div class="win-head"><span>5 小时窗口</span><span id="win5-pct" class="muted"></span></div>
+          <div class="bar"><i id="win5-fill"></i></div>
+          <div id="win5-text" class="muted"></div>
+        </div>
+        <div class="window">
+          <div class="win-head"><span>每周窗口</span><span id="winw-pct" class="muted"></span></div>
+          <div class="bar"><i id="winw-fill"></i></div>
+          <div id="winw-text" class="muted"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card"><div class="label">月度剩余</div><div id="m-monthly" class="metric">—</div></div>
+      <div class="card"><div class="label">已购额度</div><div id="m-purchased" class="metric">—</div></div>
+      <div class="card"><div class="label">免费额度</div><div id="m-free" class="metric">—</div></div>
+      <div class="card"><div class="label">套餐</div><div id="m-plan" class="metric small">—</div></div>
+    </section>
+
+    <section class="card">
+      <h2>告警</h2>
+      <ul id="alerts" class="alerts"><li class="muted">加载中…</li></ul>
+    </section>
+
+    <section class="card">
+      <h2>健康与版本</h2>
+      <div class="health">
+        <span id="h-live" class="badge">liveness —</span>
+        <span id="h-ready" class="badge">readiness —</span>
+        <span id="h-ver" class="badge plain">proxy —</span>
+        <span id="h-cc" class="badge plain">cli —</span>
+      </div>
+      <div id="summary-errors" class="errors"></div>
+    </section>
+
+    <section class="card">
+      <h2>指标</h2>
+      <div id="metrics-wrap">
+        <div class="grid">
+          <div class="card inner"><div class="label">请求总数</div><div id="mt-req" class="metric">—</div></div>
+          <div class="card inner"><div class="label">输入 token</div><div id="mt-in" class="metric">—</div></div>
+          <div class="card inner"><div class="label">输出 token</div><div id="mt-out" class="metric">—</div></div>
+          <div class="card inner"><div class="label">缓存 token</div><div id="mt-cached" class="metric">—</div></div>
+          <div class="card inner"><div class="label">累计成本 (USD)</div><div id="mt-cost" class="metric">—</div></div>
+        </div>
+        <h3>按模型</h3>
+        <table id="mt-requests" class="table"></table>
+        <div id="metrics-errors" class="errors"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
