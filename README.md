@@ -38,6 +38,19 @@ go run ./cmd/credit-dashboard
 - `GET /api/metrics` — 解析后的 `/metrics` 数据。
 - `GET /` — 内嵌前端。
 
+## Docker
+
+```bash
+docker build -t credit-dashboard .
+docker run --rm -p 8787:8787 \
+  -e PROXY_BASE_URL=http://<proxy-host>:3050 \
+  -e PROXY_API_KEY=<key> \
+  credit-dashboard
+```
+
+镜像发布在 GHCR：`ghcr.io/fffold/command-code-reverse-dashboard`
+（`edge` 跟随 main，`latest` 跟随版本 tag；多架构 amd64/arm64）。
+
 ## 开发
 
 ```bash
