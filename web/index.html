@@ -23,15 +23,22 @@
       <div class="windows">
         <div class="window">
           <div class="win-head"><span>5 小时窗口</span><span id="win5-pct" class="muted"></span></div>
-          <div class="bar"><i id="win5-fill"></i></div>
+          <div class="bar">
+            <i id="win5-fill"></i>
+            <span id="win5-cursor" class="cursor" hidden></span>
+          </div>
           <div id="win5-text" class="muted"></div>
         </div>
         <div class="window">
           <div class="win-head"><span>每周窗口</span><span id="winw-pct" class="muted"></span></div>
-          <div class="bar"><i id="winw-fill"></i></div>
+          <div class="bar">
+            <i id="winw-fill"></i>
+            <span id="winw-cursor" class="cursor" hidden></span>
+          </div>
           <div id="winw-text" class="muted"></div>
         </div>
       </div>
+      <div class="legend muted">填充 = 用量进度，竖线 = 时间进度</div>
     </section>
 
     <section class="grid">

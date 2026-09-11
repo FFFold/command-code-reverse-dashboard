@@ -31,10 +31,20 @@ main { max-width: 960px; margin: 0 auto; padding: 20px; display: flex; flex-dire
 .metric { font-size: 22px; font-weight: 600; margin-top: 4px; }
 .windows { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
 .win-head { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
-.bar { height: 8px; background: #2a3650; border-radius: 4px; overflow: hidden; }
+.bar { position: relative; height: 8px; background: #2a3650; border-radius: 4px; }
 .bar > i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 4px; transition: width .3s; }
 .bar > i.warn { background: var(--warn); }
 .bar > i.bad { background: var(--bad); }
+.bar > .cursor {
+  position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px;
+  background: var(--text); opacity: .75; border-radius: 1px; pointer-events: none;
+}
+.bar > .cursor::before {
+  content: ''; position: absolute; left: 50%; top: -4px; transform: translateX(-50%);
+  border-left: 3px solid transparent; border-right: 3px solid transparent;
+  border-top: 4px solid var(--text); opacity: .9;
+}
+.legend { font-size: 11px; margin-top: 10px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
 h2 { font-size: 15px; margin: 0 0 12px; }
 h3 { font-size: 13px; margin: 16px 0 8px; color: var(--muted); }

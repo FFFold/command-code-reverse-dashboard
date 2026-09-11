@@ -49,6 +49,12 @@ function renderSummary(s) {
   $('updated').textContent = '更新于 ' + (s.fetchedAt ? new Date(s.fetchedAt).toLocaleTimeString() : '—');
 }
 
+// Fixed window durations: 5 hours and 7 days (see design spec).
+const WINDOW_DURATION_MS = {
+  '5': 5 * 60 * 60 * 1000,
+  w: 7 * 24 * 60 * 60 * 1000,
+};
+
 function renderWindow(key, win) {
   win = win || { used: 0, cap: 0 };
   const cap = Number(win.cap) || 0;
@@ -60,8 +66,24 @@ function renderWindow(key, win) {
   if (win.exceeded || pct >= 95) fill.classList.add('bad');
   else if (pct >= 80) fill.classList.add('warn');
   $('win' + key + '-pct').textContent = pct.toFixed(1) + '%';
+
+  // Time cursor: elapsed fraction of the window, derived from resetAt.
+  const cursor = $('win' + key + '-cursor');
+  const resetAt = Number(win.resetAt) || 0;
+  const duration = WINDOW_DURATION_MS[key];
+  let timePct = null;
+  if (resetAt > 0 && duration > 0) {
+    const elapsed = duration - (resetAt - Date.now());
+    timePct = Math.max(0, Math.min(100, (elapsed / duration) * 100));
+    cursor.style.left = timePct.toFixed(1) + '%';
+    cursor.hidden = false;
+  } else {
+    cursor.hidden = true;
+  }
+
+  const timeLabel = timePct == null ? '时间 —' : `时间 ${timePct.toFixed(0)}%`;
   $('win' + key + '-text').textContent =
-    `${fmtUSD(used)} / ${fmtUSD(cap)} · 重置 ${fmtTime(win.resetAt)}`;
+    `${fmtUSD(used)} / ${fmtUSD(cap)} · ${timeLabel} · 重置 ${fmtTime(win.resetAt)}`;
 }
 
 function renderAlerts(list) {
